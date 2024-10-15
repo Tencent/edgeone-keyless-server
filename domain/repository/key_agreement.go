@@ -4,7 +4,7 @@ import (
 	"context"
 	"crypto"
 	"crypto/tls"
-	// mytls "git.woa.com/johnnyqchen/mutual_https/thirdlib/cfssl/crypto/tls"
+	// mytls "github.com/johnnyqchen/edgeone-keyless-server/thirdlib/cfssl/crypto/tls"
 )
 
 // KeyAgreement is define the key agreement interface.

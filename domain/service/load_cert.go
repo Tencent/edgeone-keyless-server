@@ -17,9 +17,9 @@ import (
 
 	"trpc.group/trpc-go/trpc-go/log"
 
-	"git.woa.com/johnnyqchen/mutual_https/domain/entity"
-	response "git.woa.com/johnnyqchen/mutual_https/infrastructure/constant"
-	"git.woa.com/johnnyqchen/mutual_https/infrastructure/utils"
+	"github.com/johnnyqchen/edgeone-keyless-server/domain/entity"
+	response "github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
+	"github.com/johnnyqchen/edgeone-keyless-server/infrastructure/utils"
 )
 
 // LoadCerts loads certificates and private keys from the specified directory.
