@@ -1,7 +1,7 @@
 [English](readme.md) | 中文
 # Edgeone keyless server
 
-基于trpc-go框架开发的工具，支持在SSL握手认证过程中独立部署私钥，从而确保私钥的更高安全性。它还支持以下功能:
+基于trpc-go框架开发的服务，支持在SSL握手认证过程中独立部署私钥，从而确保私钥的更高安全性。它还支持以下功能:
 ```
 1. 支持双向认证（与握手节点的双向认证）
 2. 支持多种证书类型的双向认证（RSA，ECC）
@@ -41,6 +41,65 @@
 git clone https://github.com/tencent/edgeone-keyless-server.git
 cd edgeone-keyless-server
 ```
+### 目录结构
+```
+edgeone-keyless-server
+├── application
+├── config              // 配置文件目录
+│   └── keyless.yaml    // 配置文件
+├── domain              // 领域层
+│   ├── entity          // 实体层
+│   │   ├── cipher_suites.go    // 密钥套件
+│   │   ├── common.go
+│   │   ├── config.go
+│   │   ├── ecc.go
+│   │   ├── load_cert_info.go   // 加载证书信息
+│   │   ├── metric.go           // QPS等指标统计
+│   │   ├── rsa.go              // RSA算法
+│   │   └── rwlock.go           // 读写锁
+│   ├── repository              // 数据访问层
+│   │   ├── key_agreement.go    // 定义数据加密、解密、签名等动作
+│   │   └── keyless.go          // 定义数据访问层
+│   └── service                 // 服务层
+│       ├── keyless.go          // 定义服务层(定义请求证书加密、解密、签名；重载证书等服务；)
+│       └── load_cert.go        // 加载证书
+├── go.mod
+├── go.sum
+├── infrastructure              //  基础层
+│   ├── config
+│   ├── constant                // 常量
+│   │   ├── const.go
+│   │   ├── error.go            // 错误信息
+│   │   └── response.go         // 错误码
+│   ├── db
+│   ├── log
+│   ├── middleware
+│   ├── protocol                // 协议层
+│   │   ├── keyless             // 定义协议层
+│   │   │   ├── keyless_server.pb.go
+│   │   │   ├── keyless_server.trpc.go
+│   │   │   └── mock
+│   │   │       └── keyless_server_mock.go
+│   │   └── pb
+│   │       ├── keyless.go            // 生成协议
+│   │       └── keyless_server.proto  // 定义协议层
+│   └── utils                    // 工具层
+│       ├── system.go            // 系统公用函数
+│       ├── system_test.go
+│       ├── time.go              // 时间公用函数
+│       └── time_test.go
+├── log             // 日志目录
+├── main.go         // 服务端入口
+├── mutual_ssl      // 双向认证证书目录
+├── presentation
+│   └── api
+├── readme.md
+├── readme.zh_CN.md
+├── ssl             // ssl证书目录
+├── testdata
+└── trpc_go.yaml    // trpc-go配置
+```
+
 ### 执行示例
 
 1.编译并执行服务端代码,相关配置已经在trpc_go.yaml配置完毕
@@ -132,3 +191,6 @@ curl -v http://127.0.0.1/KeylessReloadCerts
 ## License
 
 该项目根据MIT许可证获得许可 - 有关详细信息，请查看LICENSE.md文件。
+
+## Contribution
+如果您有任何改进Edgeone Keyless Server的想法或建议，欢迎提交问题/拉取请求。

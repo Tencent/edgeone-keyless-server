@@ -1,7 +1,7 @@
 English | [中文](readme.zh_CN.md)
 # Edgeone Keyless Server
 
-A tool developed based on the trpc-go framework that supports the independent deployment of private keys during the SSL handshake authentication process, ensuring higher security for private keys. It also supports the following features:
+A service developed based on the trpc-go framework that supports the independent deployment of private keys during the SSL handshake authentication process, ensuring higher security for private keys. It also supports the following features:
 ```
 1. Supports mutual authentication (mutual authentication with handshake nodes)
 2. Supports multiple certificate types for mutual authentication (RSA, ECC)
@@ -40,6 +40,64 @@ You can run the server by compiling the source code. An RPM package will be prov
 ```
 git clone https://github.com/tencent/edgeone-keyless-server.git
 cd edgeone-keyless-server
+```
+### Directory Structure
+```
+edgeone-keyless-server
+├── application
+├── config              // Configuration file directory
+│   └── keyless.yaml    // Configuration file
+├── domain              // Domain layer
+│   ├── entity          // Entity layer
+│   │   ├── cipher_suites.go    // Key suites
+│   │   ├── common.go
+│   │   ├── config.go
+│   │   ├── ecc.go
+│   │   ├── load_cert_info.go   // Load certificate information
+│   │   ├── metric.go           // QPS and other metrics statistics
+│   │   ├── rsa.go              // RSA algorithm
+│   │   └── rwlock.go           // Read-write lock
+│   ├── repository              // Data access layer
+│   │   ├── key_agreement.go    // Define data encryption, decryption, signature, etc.
+│   │   └── keyless.go          // Define data access layer
+│   └── service                 // Service layer
+│       ├── keyless.go          // Define service layer (define request certificate encryption, decryption, signature; reload certificate and other services;)
+│       └── load_cert.go        // Load certificate
+├── go.mod
+├── go.sum
+├── infrastructure              // Infrastructure layer
+│   ├── config
+│   ├── constant                // Constants
+│   │   ├── const.go
+│   │   ├── error.go            // Error information
+│   │   └── response.go         // Error codes
+│   ├── db
+│   ├── log
+│   ├── middleware
+│   ├── protocol                // Protocol layer
+│   │   ├── keyless             // Define protocol layer
+│   │   │   ├── keyless_server.pb.go
+│   │   │   ├── keyless_server.trpc.go
+│   │   │   └── mock
+│   │   │       └── keyless_server_mock.go
+│   │   └── pb
+│   │       ├── keyless.go            // Generate protocol
+│   │       └── keyless_server.proto  // Define protocol layer
+│   └── utils                    // Utility layer
+│       ├── system.go            // System common functions
+│       ├── system_test.go
+│       ├── time.go              // Time common functions
+│       └── time_test.go
+├── log             // Log directory
+├── main.go         // Server entry
+├── mutual_ssl      // Mutual authentication certificate directory
+├── presentation
+│   └── api
+├── readme.md
+├── readme.zh_CN.md
+├── ssl             // SSL certificate directory
+├── testdata
+└── trpc_go.yaml    // trpc-go configuration
 ```
 
 ### Execution Example
@@ -135,3 +193,6 @@ The following files must be included and placed in a separate directory:
 ## License
 
 This project is licensed under the MIT License - for more details, please see the LICENSE.md file.
+
+## Contribution
+If you have any ideas or suggestions to improve Edgeone Keyless Server, welcome to submit an issue/pull request.
