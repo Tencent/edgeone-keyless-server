@@ -9,11 +9,12 @@ import (
 	"sort"
 	"time"
 
-	"github.com/johnnyqchen/edgeone-keyless-server/domain/entity"
-	"github.com/johnnyqchen/edgeone-keyless-server/domain/repository"
-	response "github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
-	"github.com/johnnyqchen/edgeone-keyless-server/infrastructure/protocol/keyless"
-	"github.com/johnnyqchen/edgeone-keyless-server/infrastructure/utils"
+	"edgeone-keyless-server/domain/entity"
+	"edgeone-keyless-server/domain/repository"
+	response "edgeone-keyless-server/infrastructure/constant"
+	"edgeone-keyless-server/infrastructure/protocol/keyless"
+	"edgeone-keyless-server/infrastructure/utils"
+
 	"google.golang.org/protobuf/types/known/wrapperspb"
 	"trpc.group/trpc-go/trpc-go/errs"
 	"trpc.group/trpc-go/trpc-go/log"

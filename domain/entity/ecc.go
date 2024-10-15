@@ -6,7 +6,8 @@ import (
 	"crypto/ecdsa"
 	"crypto/tls"
 
-	response "github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
+	response "edgeone-keyless-server/infrastructure/constant"
+
 	"trpc.group/trpc-go/trpc-go/log"
 )
 
