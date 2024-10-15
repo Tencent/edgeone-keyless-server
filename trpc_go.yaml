@@ -1,0 +1,47 @@
+server:  # Server configuration
+  #admin: # it's for pprof to improve performance
+  #  ip: 127.0.0.1
+  #  port: 2218
+  #  read_timeout: 3000
+  #  write_timeout: 60000
+  service:  # Business services provided, can have multiple
+    - name: trpc.app.server.keylessHTTP # Local access
+      protocol: http  # Fill in http for generic HTTP RPC services
+      ip: 127.0.0.1
+      port: 80
+    - name: trpc.app.server.keylessHTTPSMutual
+      timeout: 10000  # Unit ms, each received request is allowed a maximum execution time of 1000ms, so it is important to balance the timeout allocation of all serial RPC calls within the current request, the default is 0, no timeout set
+      protocol: http  # Fill in http for generic HTTP RPC services
+      ip: 127.0.0.1
+      port: 8443
+      tls_cert: "./ssl/mutual/example.com/example.com.crt"  # Add certificate path
+      tls_key: "./ssl/mutual/example.com/example.com.key"  # Add private key path
+      ca_cert: "./ssl/mutual/example.com.ca.pem"  # CA certificate, fill in when mutual authentication is required
+plugins:
+  log:  # All log configurations
+    default:  # Default log configuration, log.Debug("xxx")
+      - writer: console  # Console standard output default
+        level: debug  # Standard output log level
+    custom:  # Custom log configuration, log.Debug("xxx")
+      - writer: console  # Console standard output default
+        level: debug  # Standard output log level
+      - writer: file  # Local file log
+        level: debug  # Local file rolling log level
+        formatter: json  # Standard output log format
+        formatter_config:
+          time_fmt: 2006-01-02 15:04:05  # Log time format. "2006-01-02 15:04:05" is the conventional time format, "seconds" is the second-level timestamp, "milliseconds" is the millisecond timestamp, "nanoseconds" is the nanosecond timestamp
+          time_key: Time  # Log time field name, not filled in by default "T", fill in "none" to disable this field
+          level_key: Level  # Log level field name, not filled in by default "L", fill in "none" to disable this field
+          name_key: Name  # Log name field name, not filled in by default "N", fill in "none" to disable this field
+          caller_key: Caller  # Log caller field name, not filled in by default "C", fill in "none" to disable this field
+          message_key: Message  # Log message body field name, not filled in by default "M", fill in "none" to disable this field
+          stacktrace_key: StackTrace  # Log stack trace field name, not filled in by default "S", fill in "none" to disable this field
+        writer_config:
+          log_path: ./log/
+          filename: keyless.log  # Local file rolling log storage path
+          write_mode: 1  # Log write mode, 1-synchronous, 2-asynchronous, 3-extreme (asynchronous discard), not configured by default asynchronous mode
+          roll_type: size  # File rolling type, size is rolled according to size
+          max_age: 180  # Maximum log retention days
+          max_backups: 3  # Maximum number of log files
+          compress: true  # Whether to compress log files
+          max_size: 100  # Local file rolling log size Unit MB

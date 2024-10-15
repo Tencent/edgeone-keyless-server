@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package trpc.mutual_https.keyless;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/any.proto";
+import "trpc/proto/trpc_options.proto";
+
+option go_package = "git.woa.com/edgeone/edgeone/protocol/keyless";
+
+service KeylessService {
+    rpc KeylessRequest(KeylessRequestReq) returns (KeylessRequestResp) {
+        option (trpc.alias) = "/KeylessRequest";
+    };
+    rpc KeylessReloadCerts(KeylessRequestReq) returns (KeylessRequestResp){
+        option (trpc.alias) = "/KeylessReloadCerts";
+    };
+    rpc KeylessQueryMetricInfo(KeylessRequestReq) returns (KeylessRequestResp){
+        option (trpc.alias) = "/KeylessQueryMetricInfo";
+    }; 
+}
+message KeylessRequestReq {
+ google.protobuf.Int32Value type = 1 [json_name = "Type"];
+ google.protobuf.Int32Value cert_type = 2 [json_name = "CertType"];
+ google.protobuf.StringValue cert_sn = 3 [json_name = "CertSn"];
+ google.protobuf.StringValue cert_issuer = 4 [json_name = "CertIssuer"];
+ google.protobuf.BytesValue data = 5 [json_name = "Data"];
+ google.protobuf.Int32Value sign_type = 6 [json_name = "SignType"];
+ google.protobuf.Int32Value padding = 7 [json_name = "Padding"];
+ google.protobuf.UInt64Value seq = 8 [json_name = "Seq"]; 
+}
+
+message KeylessRequestResp
+{
+ google.protobuf.Int32Value ret_code = 1 [json_name = "ret_code"];
+ google.protobuf.StringValue msg = 2 [json_name = "Msg"];
+ google.protobuf.BytesValue data = 3 [json_name = "Data"];
+ google.protobuf.BoolValue already_crypt = 4 [json_name = "AlreadyCrypt"];
+}

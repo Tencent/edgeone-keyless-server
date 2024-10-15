@@ -1,0 +1,4 @@
+private_key_path: /ssl # private key path
+mutual_certs_path: /mutual_ssl # mutual certs path
+prefer_server_cipher_suites: true # prefer server cipher suites
+log_path: /log # log path
