@@ -13,7 +13,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	keyless "git.woa.com/johnnyqchen/mutual_https/infrastructure/protocol/keyless"
+	keyless "github.com/johnnyqchen/edgeone-keyless-server/infrastructure/protocol/keyless"
 	gomock "go.uber.org/mock/gomock"
 	client "trpc.group/trpc-go/trpc-go/client"
 )

@@ -1,4 +1,4 @@
-module git.woa.com/johnnyqchen/mutual_https
+module github.com/johnnyqchen/edgeone-keyless-server
 
 go 1.20
 

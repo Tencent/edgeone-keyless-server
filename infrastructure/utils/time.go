@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"git.woa.com/johnnyqchen/mutual_https/infrastructure/constant"
+	"github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
 )
 
 // TimeFormat time format

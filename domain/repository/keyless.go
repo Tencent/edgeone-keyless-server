@@ -1,6 +1,6 @@
 package repository
 
-import "git.woa.com/johnnyqchen/mutual_https/infrastructure/protocol/keyless"
+import "github.com/johnnyqchen/edgeone-keyless-server/infrastructure/protocol/keyless"
 
 // KeylessService is the interface for keyless service.
 type KeylessService interface {
