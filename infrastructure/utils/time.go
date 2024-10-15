@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
+	"edgeone-keyless-server/infrastructure/constant"
 )
 
 // TimeFormat time format

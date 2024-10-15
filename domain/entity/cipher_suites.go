@@ -12,8 +12,8 @@ import (
 	"crypto/x509"
 	"hash"
 
-	"github.com/johnnyqchen/edgeone-keyless-server/domain/repository"
-	"github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
+	"edgeone-keyless-server/domain/repository"
+	"edgeone-keyless-server/infrastructure/constant"
 )
 
 type macFunction interface {

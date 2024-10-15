@@ -17,9 +17,9 @@ import (
 
 	"trpc.group/trpc-go/trpc-go/log"
 
-	"github.com/johnnyqchen/edgeone-keyless-server/domain/entity"
-	response "github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
-	"github.com/johnnyqchen/edgeone-keyless-server/infrastructure/utils"
+	"edgeone-keyless-server/domain/entity"
+	response "edgeone-keyless-server/infrastructure/constant"
+	"edgeone-keyless-server/infrastructure/utils"
 )
 
 // LoadCerts loads certificates and private keys from the specified directory.

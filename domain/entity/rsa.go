@@ -42,7 +42,8 @@ import (
 	"math/big"
 	"unsafe"
 
-	response "github.com/johnnyqchen/edgeone-keyless-server/infrastructure/constant"
+	response "edgeone-keyless-server/infrastructure/constant"
+
 	"github.com/ncw/gmp"
 	"trpc.group/trpc-go/trpc-go/log"
 )

@@ -1,4 +1,4 @@
-module github.com/johnnyqchen/edgeone-keyless-server
+module edgeone-keyless-server
 
 go 1.20
 
