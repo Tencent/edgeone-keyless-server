@@ -190,7 +190,7 @@ curl -v http://127.0.0.1/KeylessReloadCerts
 
 ## License
 
-该项目根据MIT许可证获得许可 - 有关详细信息，请查看LICENSE.md文件。
+该项目根据MIT许可证获得许可 - 有关详细信息，请查看LICENSE文件。
 
 ## Contribution
 如果您有任何改进Edgeone Keyless Server的想法或建议，欢迎提交问题/拉取请求。

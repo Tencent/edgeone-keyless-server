@@ -192,7 +192,7 @@ The following files must be included and placed in a separate directory:
 
 ## License
 
-This project is licensed under the MIT License - for more details, please see the LICENSE.md file.
+This project is licensed under the MIT License - for more details, please see the LICENSE file.
 
 ## Contribution
 If you have any ideas or suggestions to improve Edgeone Keyless Server, welcome to submit an issue/pull request.
