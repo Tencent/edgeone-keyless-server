@@ -15,7 +15,7 @@ A service developed based on the trpc-go framework that supports the independent
 
 ### Prerequisites
 
-- **[Go](https://go.dev/doc/install)**, version should be greater than or equal to go1.18.
+- **[Go](https://go.dev/doc/install)**, version should be greater than or equal to go1.20.
 - **[tRPC cmdline tools](https://github.com/trpc-group/trpc-cmdline)**, used for generating PB (protobuf) protocol code.
 - **[trpc-go](https://github.com/trpc-group/trpc-go)**, version v1.0.3.
 - **[OpenSSL](https://github.com/openssl/openssl?tab=readme-ov-file#build-and-install)**, requires related libraries `openssl-static`, `openssl-devel`, and `zlib-devel`.
