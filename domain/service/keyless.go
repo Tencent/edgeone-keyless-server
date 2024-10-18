@@ -166,13 +166,14 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 		rsp = &keyless.KeylessRequestResp{}
 		if ok {
 			rsp.RetCode = wrapperspb.Int32(int32(v.Code))
+			rsp.Msg = wrapperspb.String(v.Msg)
 		} else {
 			// If err is not of type *errs.Error, handle it according to the actual situation
 			log.Errorf("unknow err:%+v", err)
 			rsp.RetCode = wrapperspb.Int32(int32(response.KS_ERROR))
+			rsp.Msg = wrapperspb.String("unknown error")
 		}
 		rsp.AlreadyCrypt = wrapperspb.Bool(false)
-		rsp.Msg = wrapperspb.String(v.Msg)
 	}
 
 	return rsp, nil
