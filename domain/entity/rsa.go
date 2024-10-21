@@ -44,7 +44,6 @@ import (
 
 	response "edgeone-keyless-server/infrastructure/constant"
 
-	"github.com/ncw/gmp"
 	"trpc.group/trpc-go/trpc-go/log"
 )
 
@@ -161,38 +160,12 @@ func privateEncrypt(plaintext []byte, privateKey *rsa.PrivateKey, padding int) (
 	return encrypted, nil
 }
 
-// BigIntToGmpInt converts a *big.Int to a *gmp.Int.
-func BigIntToGmpInt(bi *big.Int) (*gmp.Int, error) {
-	bigIntStr := bi.String()
-	gi := new(gmp.Int)
-	_, success := gi.SetString(bigIntStr, 10)
-	if !success {
-		return nil, fmt.Errorf("failed to convert string to gmp.Int")
-	}
-	return gi, nil
-}
 
 func bigExp(x, y, n *big.Int) []byte {
 	c := new(big.Int).Exp(x, y, n)
 	return c.Bytes()
 }
 
-func gmpExp(x, y, n *big.Int) ([]byte, error) {
-	xNew, err := BigIntToGmpInt(x)
-	if err != nil {
-		return nil, err
-	}
-	yNew, err := BigIntToGmpInt(y)
-	if err != nil {
-		return nil, err
-	}
-	nNew, err := BigIntToGmpInt(n)
-	if err != nil {
-		return nil, err
-	}
-	c := new(gmp.Int).Exp(xNew, yNew, nNew)
-	return c.Bytes(), nil
-}
 
 func opensslExp(x, y, n *big.Int) ([]byte, error) {
 	baseStr := C.CString(x.Text(16))
