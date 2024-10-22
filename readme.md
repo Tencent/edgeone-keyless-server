@@ -18,7 +18,7 @@ A service developed based on the trpc-go framework that supports the independent
 - **[Go](https://go.dev/doc/install)**, version should be greater than or equal to go1.20.
 - **[tRPC cmdline tools](https://github.com/trpc-group/trpc-cmdline)**, used for generating PB (protobuf) protocol code.
 - **[trpc-go](https://github.com/trpc-group/trpc-go)**, version v1.0.3.
-- **[OpenSSL](https://github.com/openssl/openssl?tab=readme-ov-file#build-and-install)**, requires related libraries `openssl-static`, `openssl-devel`, and `zlib-devel`.
+- **[OpenSSL](https://github.com/openssl/openssl?tab=readme-ov-file#build-and-install)**, requires related libraries `openssl-static`(1:1.1.1k-12.tl3.1), `openssl-devel`(1:1.1.1k-12.tl3.1), and `zlib-devel`(1.2.11-25.tl3 ).
     ```bash
     # On CentOS:
     sudo yum install openssl-static -y

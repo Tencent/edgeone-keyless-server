@@ -19,7 +19,7 @@
 - **[Go](https://go.dev/doc/install)**, 版本应大于或等于go1.20。
 - **[tRPC cmdline tools](https://github.com/trpc-group/trpc-cmdline)**, 用于生成PB(protobuf)协议代码
 - **[trpc-go](https://github.com/trpc-group/trpc-go)**, 版本为v1.0.3
-- **[Openssl](https://github.com/openssl/openssl?tab=readme-ov-file#build-and-install)**, 需要相关库openssl-static 、openssl-devel 和zlib-devel
+- **[Openssl](https://github.com/openssl/openssl?tab=readme-ov-file#build-and-install)**, 需要相关库`openssl-static`(1:1.1.1k-12.tl3.1), `openssl-devel`(1:1.1.1k-12.tl3.1), and `zlib-devel`(1.2.11-25.tl3 ).
     ```bash
     #On Centos:
     sudo yum install openssl-static -y
