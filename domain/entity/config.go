@@ -15,9 +15,8 @@ type KeylessConfig struct {
 	// Path to the mutual TLS certificates for two-way authentication with workers
 	MutualCertsPath string `json:"mutual_certs_path" yaml:"mutual_certs_path" validate:"required"`
 	// Whether to prefer server cipher suites
-	PreferServerCipherSuites bool `json:"prefer_server_cipher_suites" yaml:"prefer_server_cipher_suites"
-validate:"required"`
-
+	PreferServerCipherSuites bool `json:"prefer_server_cipher_suites" yaml:"prefer_server_cipher_suites" validate:"required"`
+	Version string `json:"version" yaml:"version" validate:"required"`
 	// Path to the log file
 	LogPath string `json:"log_path" yaml:"log_path" validate:"required"`
 }

@@ -170,7 +170,7 @@ Use the `curl` command to test directly. Note that the protocol content must con
 ```
 curl --resolve your.site.com:443:127.1.1.1 \
    https://your.site.com/KeylessRequest \
-   -d '{ "Type": 1, "CertType": 11, "CertSn":  "your_cert_sn", "CertIssuer":  "your_cert_issuer", "Data":  "base64", "SignType": 1, "Padding": 1, "Seq": 123 }' \
+   -d '{ "Type": 1, "CertType": 11, "CertSn":  "your_cert_sn", "CertIssuer":  "your_cert_issuer", "Data":  "base64", "SignType": 1, "Padding": 1, "Seq": "123" }' \
    -H "Content-Type: application/json" -v \
    --cacert yourcacert.crt --cert yourcert.crt --key yourprivate.key
 ```

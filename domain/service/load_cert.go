@@ -57,7 +57,7 @@ func (k *KeylessService) LoadCerts(keyPath string, first bool, newLog log.Logger
 				newLog.Errorf("read file failed: %v", err)
 				continue
 			}
-			// 获取key
+			// get key
 			key := utils.GetFileName(file.Name())
 			if len(key) == 0 {
 				newLog.Errorf("file is wrong: %v", filePath)

@@ -167,7 +167,7 @@ log_path: /log # 日志路径
 ```
 curl --resolve your.site.com:443:127.1.1.1 \
    https://your.site.com/KeylessRequest \
-   -d '{ "Type": 2, "CertType": 47, "CertSn":  "your_cert_sn", "CertIssuer":  "your_cert_issuer", "Data":  "VGhpcyBpcyBhIHRlc3QgYmluYXJ5IGRhdGEu", "SignType": 3, "Padding": 3, "Seq": 123 }' \
+   -d '{ "Type": 2, "CertType": 47, "CertSn":  "your_cert_sn", "CertIssuer":  "your_cert_issuer", "Data":  "VGhpcyBpcyBhIHRlc3QgYmluYXJ5IGRhdGEu", "SignType": 3, "Padding": 3, "Seq": "123" }' \
    -H "Content-Type: application/json" -v \
    --cacert yourcacert.crt --cert yourcert.crt --key yourprivate.key
 ```

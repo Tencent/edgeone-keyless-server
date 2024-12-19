@@ -35,7 +35,10 @@ func InitConf() (*entity.Conf, error) {
 	if err = yaml.Unmarshal(conf.Bytes(), &keylessConf); err != nil {
 		return nil, response.ErrParseConfig
 	}
-	// log.Infof("config is :%+v", keylessConf)
+	log.Infof("config is :%+v", keylessConf)
+	if keylessConf.Version == "" {
+		keylessConf.Version = constant.VERSION
+	}
 	return &entity.Conf{Config: keylessConf}, nil
 }
 
@@ -69,9 +72,11 @@ func main() {
 		log.Errorf("load certs failed:%v", err)
 		return
 	}
+
 	// HTTP service for local calls
 	keyless.RegisterKeylessServiceService(s.Service(constant.HTTP_SERVER), keylessServer)
 	// HTTPS service for remote calls
 	keyless.RegisterKeylessServiceService(s.Service(constant.HTTPS_SERVER), keylessServer)
 	log.Info(s.Serve())
+
 }
