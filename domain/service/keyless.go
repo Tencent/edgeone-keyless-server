@@ -78,6 +78,7 @@ func (k *KeylessService) KeylessQueryMetricInfo(ctx context.Context,
 	return &keyless.KeylessRequestResp{
 		RetCode: wrapperspb.Int32(response.KS_OK),
 		Msg:     wrapperspb.String(currentBusinessInfo),
+		Version: wrapperspb.String(k.Config.Config.Version),
 	}, nil
 }
 
@@ -94,8 +95,7 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 	newLog.Infof("KeylessRequest :%+v", req)
 	reqType := req.GetType().GetValue()
 	newLog.Infof("KeylessRequest reqType :%+v", reqType)
-	// Metric statistics
-	k.CurrentRequestActionMetric[entity.SSLAlgoMetricMap[reqType]].TotalAccount()
+
 	now := time.Now().UnixMilli()
 	isOk := false
 	defer func() {
@@ -103,7 +103,10 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 		opCost := last - now
 		newLog.Infof("now:%s , before: %s, cost(ms): %d, isok:%t", utils.TimeFormat(now/1000), utils.TimeFormat(last/1000),
 			last-now, isOk)
-
+		if reqType <= entity.SUITE_TLS_BASE || reqType >= entity.SUITE_TLS_TOPPER {
+			newLog.Errorf("wrong req type:%d", reqType)
+			return
+		}
 		if !isOk {
 			k.CurrentRequestActionMetric[entity.SSLAlgoMetricMap[reqType]].TotalFailureAccount()
 		} else {
@@ -112,6 +115,7 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 		k.CurrentRequestActionMetric[entity.SSLAlgoMetricMap[reqType]].AllCostCount(opCost)
 	}()
 
+	newLog.Infof("KeylessRequest reqType :%d, %d", reqType, entity.ECC_SIGN)
 	switch reqType {
 	case entity.RSA_SIGN:
 		rsp, err = k.signRequest(ctx, req, newLog)
@@ -141,24 +145,13 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 			break
 		}
 		isOk = true
-	case entity.ECC_DECRYPT:
-		rsp, err = k.decryptRequest(ctx, req, newLog)
-		if err != nil {
-			log.ErrorContextf(ctx, "decrypt request failed:%+v", err)
-			break
-		}
-		isOk = true
-	case entity.ECC_ENCRYPT:
-		rsp, err = k.encryptRequest(ctx, req, newLog)
-		if err != nil {
-			log.ErrorContextf(ctx, "encrypt request failed:%+v", err)
-			break
-		}
-		isOk = true
 	default:
 		log.DebugContextf(ctx, "wrong req type")
 		err = response.ErrWrongReqType
 	}
+
+	// Metric statistics
+	k.CurrentRequestActionMetric[entity.SSLAlgoMetricMap[reqType]].TotalAccount()
 
 	if !isOk {
 		// Determine the type of data structure
@@ -174,6 +167,7 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 			rsp.Msg = wrapperspb.String("unknown error")
 		}
 		rsp.AlreadyCrypt = wrapperspb.Bool(false)
+		rsp.Version = wrapperspb.String(k.Config.Config.Version)
 	}
 
 	return rsp, nil
@@ -206,6 +200,7 @@ func (k *KeylessService) signRequest(ctx context.Context, req *keyless.KeylessRe
 	return &keyless.KeylessRequestResp{
 		RetCode: wrapperspb.Int32(response.KS_OK),
 		Data:    wrapperspb.Bytes(data),
+		Version: wrapperspb.String(k.Config.Config.Version),
 	}, nil
 }
 
@@ -237,6 +232,7 @@ func (k *KeylessService) encryptRequest(ctx context.Context, req *keyless.Keyles
 	return &keyless.KeylessRequestResp{
 		RetCode: wrapperspb.Int32(response.KS_OK),
 		Data:    wrapperspb.Bytes(data),
+		Version: wrapperspb.String(k.Config.Config.Version),
 	}, nil
 }
 
@@ -268,14 +264,15 @@ func (k *KeylessService) decryptRequest(ctx context.Context, req *keyless.Keyles
 	return &keyless.KeylessRequestResp{
 		RetCode: wrapperspb.Int32(response.KS_OK),
 		Data:    wrapperspb.Bytes([]byte(strData)),
+		Version: wrapperspb.String(k.Config.Config.Version),
 	}, nil
 }
 
 // getKeyAgreement retrieves the appropriate key agreement algorithm.
 func getKeyAgreement(ctx context.Context, req *keyless.KeylessRequestReq) (repository.KeyAgreement, error) {
-	keyAgreement, ok := entity.CipherSuites[(uint16(req.GetCertType().GetValue()))]
+	keyAgreement, ok := entity.KeyAgreementMap[(uint16(req.GetType().GetValue()))]
 	if !ok {
-		log.ErrorContextf(ctx, "algo(%d) of ssl is unsupported!", req.GetCertType().GetValue())
+		log.ErrorContextf(ctx, "the cmd(%d) of cipher is unsupported!", req.GetType().GetValue())
 		return nil, response.ErrNotSupprotCipher
 	}
 	// Set default value
@@ -304,5 +301,5 @@ func (k *KeylessService) KeylessReloadCerts(ctx context.Context,
 		return nil, err
 	}
 
-	return &keyless.KeylessRequestResp{}, nil
+	return &keyless.KeylessRequestResp{Version: wrapperspb.String(k.Config.Config.Version)}, nil
 }

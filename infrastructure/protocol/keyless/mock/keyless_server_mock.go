@@ -11,9 +11,9 @@ package keyless
 
 import (
 	context "context"
+	keyless "edgeone-keyless-server/infrastructure/protocol/keyless"
 	reflect "reflect"
 
-	keyless "edgeone-keyless-server/infrastructure/protocol/keyless"
 	gomock "go.uber.org/mock/gomock"
 	client "trpc.group/trpc-go/trpc-go/client"
 )
