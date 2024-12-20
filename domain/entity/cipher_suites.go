@@ -41,10 +41,10 @@ var AttributeTypeNames = map[string]string{
 
 const (
 	SUITE_TLS_BASE = iota + -1
-	RSA_SIGN       // RSA签名
-	RSA_DECRYPT    // RSA解密
-	RSA_ENCRYPT    // RSA加密
-	ECC_SIGN       // ECC签名
+	RSA_SIGN       // RSA signature
+	RSA_DECRYPT    // RSA decrypt
+	RSA_ENCRYPT    // RSA encrypt
+	ECC_SIGN       // ECC signature
 	SUITE_TLS_TOPPER
 )
 
