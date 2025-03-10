@@ -28,5 +28,5 @@ const (
 )
 
 const (
-	VERSION = "1.0.5" // version
+	VERSION = "1.0.7" // version
 )

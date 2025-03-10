@@ -36,7 +36,6 @@ func (e EccKeyAgreement) Encrypt(ctx context.Context, ciphertext []byte, config 
 func (e EccKeyAgreement) Sign(ctx context.Context, ciphertext []byte, config *tls.Config,
 	privateKey *crypto.PrivateKey, pss bool,
 ) (out []byte, err error) {
-	log.Infof("ecc sign start")
 	priv, ok := (*privateKey).(*ecdsa.PrivateKey)
 	if !ok {
 		return nil, response.ErrEccSignUnSupport
@@ -46,6 +45,5 @@ func (e EccKeyAgreement) Sign(ctx context.Context, ciphertext []byte, config *tl
 		log.ErrorContextf(ctx, "ecc sign failed:%+v", err)
 		return
 	}
-	log.Infof("ecc sign success")
 	return
 }

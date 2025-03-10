@@ -92,17 +92,15 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 	if req.GetSeq() != nil {
 		newLog = log.With(log.Field{Key: response.MSG_UUID_NAME, Value: req.GetSeq().GetValue()})
 	}
-	newLog.Infof("KeylessRequest :%+v", req)
 	reqType := req.GetType().GetValue()
-	newLog.Infof("KeylessRequest reqType :%+v", reqType)
 
 	now := time.Now().UnixMilli()
 	isOk := false
 	defer func() {
 		last := time.Now().UnixMilli()
 		opCost := last - now
-		newLog.Infof("now:%s , before: %s, cost(ms): %d, isok:%t", utils.TimeFormat(now/1000), utils.TimeFormat(last/1000),
-			last-now, isOk)
+		// newLog.Infof("KeylessRequest :%+v, now:%s , before: %s, cost(ms): %d, isok:%t", req, utils.TimeFormat(now/1000), utils.TimeFormat(last/1000),
+			// last-now, isOk)
 		if reqType <= entity.SUITE_TLS_BASE || reqType >= entity.SUITE_TLS_TOPPER {
 			newLog.Errorf("wrong req type:%d", reqType)
 			return
@@ -115,7 +113,6 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 		k.CurrentRequestActionMetric[entity.SSLAlgoMetricMap[reqType]].AllCostCount(opCost)
 	}()
 
-	newLog.Infof("KeylessRequest reqType :%d, %d", reqType, entity.ECC_SIGN)
 	switch reqType {
 	case entity.RSA_SIGN:
 		rsp, err = k.signRequest(ctx, req, newLog)
@@ -177,7 +174,6 @@ func (k *KeylessService) KeylessRequest(ctx context.Context, req *keyless.Keyles
 func (k *KeylessService) signRequest(ctx context.Context, req *keyless.KeylessRequestReq,
 	newLog log.Logger,
 ) (*keyless.KeylessRequestResp, error) {
-	newLog.Infof("signRequest :%+v", utils.PrintJsonLog(req))
 	ka, err := getKeyAgreement(ctx, req)
 	if err != nil {
 		log.ErrorContextf(ctx, "sign failed:%+v", err)
@@ -196,7 +192,6 @@ func (k *KeylessService) signRequest(ctx context.Context, req *keyless.KeylessRe
 		log.ErrorContextf(ctx, "sign failed:%+v", err)
 		return nil, err
 	}
-	newLog.Infof("sign success")
 	return &keyless.KeylessRequestResp{
 		RetCode: wrapperspb.Int32(response.KS_OK),
 		Data:    wrapperspb.Bytes(data),

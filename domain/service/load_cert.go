@@ -236,7 +236,6 @@ func (k *KeylessService) GetRightPrivateKey(certSn, certIssuer string, newLog lo
 	error,
 ) {
 	// Get read lock
-	newLog.Infof("get right key ")
 	currentCertInfoPtr := k.KeyLessCert.GetCurrentOne()
 	if currentCertInfoPtr.DataLock.TryRLock(entity.TIME_WAIT_RW * time.Second) {
 		defer currentCertInfoPtr.DataLock.RUnlock()
@@ -248,7 +247,6 @@ func (k *KeylessService) GetRightPrivateKey(certSn, certIssuer string, newLog lo
 
 			return nil, response.ErrPKNotFound
 		}
-		newLog.Infof("get right key success,cert name:%s", v.CertName)
 		return v, nil
 	} else {
 		newLog.Errorf("try r lock failed")
