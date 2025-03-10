@@ -7,19 +7,21 @@ import (
 	"edgeone-keyless-server/infrastructure/constant"
 )
 
-// TimeFormat time format
+var chinaLocation *time.Location
+
+func init() {
+	var err error
+	chinaLocation, err = time.LoadLocation(constant.TIME_LOCATION)
+	if err != nil {
+		fmt.Println("Error loading location:", err)
+		chinaLocation = time.UTC
+	}
+}
+
 func TimeFormat(now int64) string {
 	if now < 0 {
 		return ""
 	}
-	t := time.Unix(now, 0)
-	// Create China timezone (UTC+8)
-	location, err := time.LoadLocation(constant.TIME_LOCATION)
-	if err != nil {
-		fmt.Println("Error loading location:", err)
-		return ""
-	}
-	// Convert time to China timezone
-	chinaTime := t.In(location)
-	return chinaTime.Format(constant.TIME_FORMAT)
+	t := time.Unix(now, 0).In(chinaLocation)
+	return t.Format(constant.TIME_FORMAT)
 }
