@@ -1,6 +1,6 @@
 Tencent is pleased to support the open source community by making Edgeone-keyless-server available. 
 
-Copyright (C) 2024 THL A29 Limited, a Tencent company.  All rights reserved. 
+Copyright (C) 2024 Tencent.  All rights reserved. 
 
 Edgeone-keyless-server is licensed under the MIT License.
 
@@ -19,7 +19,7 @@ Other dependencies and licenses:
 Open Source Software Licensed under the Apache License Version 2.0 and Other Licenses of the Third-Party Components therein::
 --------------------------------------------------------------------
 1. trpc-go
-Copyright (C) 2023 THL A29 Limited, a Tencent company.  All rights reserved. 
+Copyright (C) 2023 Tencent.  All rights reserved. 
 Source code of this software can be obtained from: https://github.com/trpc-group/trpc-go
 
 
